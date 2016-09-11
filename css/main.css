@@ -1,21 +1,8 @@
-/*.squares{
-	margin: 1px;
-	background-color: green;
-	float: left;
-}
-
-
-
-.on{
-	background-color: blue;
-}
-
-.off{
-	background-color: black;
-}
-*/
 
 .container{
-	width: 50%;
+	border: 5px solid blue;
+	width: 890px;
+	height: 890px;
 	margin: 0 auto;
+	
 }
