@@ -10,20 +10,22 @@ $(document).ready(function(){
 	$('.container').before('<button class="btn_trail">Trail Mode</btn>');
 	$('.container').before('<button class="btn_random">Random Mode</btn>');
 	$('.container').before('<button class="btn_create">Create New Grid</btn>');
+	$('.container').before('<button class="btn_normal">Normal Mode</btn>');
 	$('.btn_clear').css({'border-radius':'30px'});
 	$('.btn_trail').css({'border-radius':'30px','float':'right'});
 	$('.btn_create').css({'border-radius':'30px'});
 	$('.btn_random').css({'border-radius':'30px','float':'right'});
+	$('.btn_normal').css({'border-radius':'30px','float':'right'});
 	$('h1').css({'width':'50%',
 				 'margin':'0 auto',
 				 'text-align':'center'});
 	createGrid(num);
 
 	function createGrid(num){
-			$('.squares').remove();
-			$('.clr').remove();
+		$('.squares').remove();
+		$('.clr').remove();
 		
-			var box = $(".container").width() / num - 2 ;
+		var box = $(".container").width() / num - 2 ;
 
 		for(j = 0; j < num ; j++){
 			for(i = 0; i < num ; i++){
@@ -33,38 +35,70 @@ $(document).ready(function(){
 			}
 
 
-	$('.squares').css({	'background-color': 'white',
+		$('.squares').css({	'background-color': 'white',
 							'float':'left',
 							'margin':'1px'});
-	start();
+
 
 	}
 	
 
 
-	function start(){
+	$('.btn_clear').on('click', function(){
+		clearMode();
+		
+	});
+
+	$('.btn_create').on('click', function(){
+		createMode();
+	});
+
+	$('.btn_normal').on('click', function(){
+		normalMode();
+	});
+
+	$('.btn_random').on('click', function(){
+		randomMode();
+	});
+
+	$('.btn_trail').on('click', function(){
+		trailMode();
+	});
+
+
+
+
+	function clearMode(){
+		$('.squares').css({'background-color': 'white'});
+		$('.squares').css({'opacity': '1'});
+	}
+
+	function createMode(){
+		var num = prompt('How many grids?');
+		createGrid(num);
+	}
+
+	function normalMode(){
 		$('.squares').on('mouseenter', function(){
 			$(this).css({'background-color':'black'});
-		//	$(this).animate({'opacity': '1'});
 		});
 
 		$('.squares').on('mouseleave', function(){
 			$(this).css({'background-color':'black'});
-		//	$(this).animate({'opacity': '0.5'}, 10);
 		});
 	}
 
+	function randomMode(){
+		$('.squares').on('mouseenter', function(){
+			$(this).css({'background-color': randColor });
+		});
 
-	$('.btn_clear').on('click', function(){
-		$('.squares').css({'background-color': 'white'});
-		$('.squares').css({'opacity': '1'});
-		
-	});
+		$('.squares').on('mouseleave', function(){
+			$(this).css({'background-color': randColor });
+		});
+	}
 
-	$('.btn_trail').on('click', function(){
-		
-		if( $(this).hasClass("off") ){
-		$(this).css("background-color", "red");
+	function trailMode(){
 		$('.squares').on('mouseenter', function(){
 			$(this).css({'background-color':'black'});
 			$(this).animate({'opacity': '1'});
@@ -74,43 +108,11 @@ $(document).ready(function(){
 			$(this).css({'background-color':'black'});
 			$(this).animate({'opacity': '0.5'}, 20);
 		});
-			$(this).removeClass("off");
-		
-		} else	{
-			$(this).css("background-color", "white");
-			$(this).addClass("off");
 
-		$('.squares').on('mouseenter', function(){
-			$(this).css({'background-color':'black'});
-			$(this).animate({'opacity': '1'});
-		});
 
-		$('.squares').on('mouseleave', function(){
-			$(this).css({'background-color':'black'});
-			$(this).animate({'opacity': '1'}, 0);
-
-		});
-
-		}
+	}
 	
-	
-	});
-	
-	$('.btn_create').on('click', function(){
-		var num = prompt('How many grids?');
-		createGrid(num);
-	});
 
-
-	$('.btn_random').on('click', function(){
-		$('.squares').on('mouseenter', function(){
-			$(this).css("background-color", "randColor()");
-		});
-
-		$('.squares').on('mouseleave', function(){
-			$(this).css({'background-color':'randColor()'});
-		});
-	});
 
 	function randColor(){
 		colorOut = "#";
