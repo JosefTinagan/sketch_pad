@@ -1,7 +1,12 @@
 
-$(document).ready(function(){
-	var $squares = $('<div class="squares"></div>');
+var $squares = $('<div class="squares"></div>');
 	var num = 24;	
+	var trail = false;
+	var c = 0;
+
+
+
+$(document).ready(function(){
 
 
 	$('body').prepend('<div class="container"> </div>');
@@ -19,9 +24,19 @@ $(document).ready(function(){
 	$('h1').css({'width':'50%',
 				 'margin':'0 auto',
 				 'text-align':'center'});
-	createGrid(num);
+	
+	
+	
+	
 
-	function createGrid(num){
+	createGrid(num);
+	run();
+});
+
+
+
+
+function createGrid(num){
 		$('.squares').remove();
 		$('.clr').remove();
 		
@@ -39,46 +54,58 @@ $(document).ready(function(){
 							'float':'left',
 							'margin':'1px'});
 
-
+		return;	
 	}
 	
 
+function run(){
+
 
 	$('.btn_clear').on('click', function(){
+	
 		clearMode();
 		
 	});
 
 	$('.btn_create').on('click', function(){
+	
 		createMode();
 	});
 
 	$('.btn_normal').on('click', function(){
+	
 		normalMode();
 	});
 
 	$('.btn_random').on('click', function(){
+		
 		randomMode();
 	});
 
 	$('.btn_trail').on('click', function(){
+		
+		
 		trailMode();
+
 	});
 
+}
 
 
 
-	function clearMode(){
+function clearMode(){
 		$('.squares').css({'background-color': 'white'});
 		$('.squares').css({'opacity': '1'});
+	
+
 	}
 
-	function createMode(){
+function createMode(){
 		var num = prompt('How many grids?');
 		createGrid(num);
 	}
 
-	function normalMode(){
+function normalMode(){
 		$('.squares').on('mouseenter', function(){
 			$(this).css({'background-color':'black'});
 		});
@@ -88,17 +115,21 @@ $(document).ready(function(){
 		});
 	}
 
-	function randomMode(){
+function randomMode(){
 		$('.squares').on('mouseenter', function(){
-			$(this).css({'background-color': randColor });
+			
+			
+			$(this).css({'background-color': randColor(c) });
 		});
 
 		$('.squares').on('mouseleave', function(){
-			$(this).css({'background-color': randColor });
+			c = c + 1;
+			$(this).css({'background-color': randColor(c) });
 		});
 	}
 
-	function trailMode(){
+function trailMode(){
+	
 		$('.squares').on('mouseenter', function(){
 			$(this).css({'background-color':'black'});
 			$(this).animate({'opacity': '1'});
@@ -108,19 +139,25 @@ $(document).ready(function(){
 			$(this).css({'background-color':'black'});
 			$(this).animate({'opacity': '0.5'}, 20);
 		});
-
+		
 
 	}
 	
 
+function randColor(ci){
+		
 
-	function randColor(){
+		if(ci % 10 === 0){
+			bcolor = "#111111";
+			return bcolor;
+		} else{
+
 		colorOut = "#";
 		colArr = ['1','2','3','4','5','6','7','8','9','0','A','B','C','D','E','F']
 		for (var i = 0; i < 6; i++){
 			colorOut += colArr[Math.floor(Math.random()*15)];
-		}
+		}		
 		return colorOut;
+		
+		}
 	};
-
-});
